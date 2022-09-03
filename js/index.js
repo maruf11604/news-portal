@@ -32,9 +32,25 @@ const loadNewsId= async(category_id)=>{
     const data= await res.json();
     DisplayId(data.data)//data.data
 
+    
+
 }
 
+// const getLength=(items)=>{
+//   let length=items.length;
+//   let flength=length.toString()
+//   const inputField=document.getElementById('item-id');
+//   const inputString=inputField.value ;
+//   inputString.innerText=flength;
+// }
+
 const DisplayId=(items)=>{
+  
+  
+  
+
+   
+ 
     
     const itemContainer=document.getElementById('catagories');
     itemContainer.innerHTML=''
@@ -96,7 +112,18 @@ const DisplayId=(items)=>{
     });
     toggleLoader(false);
 
+      let length=items.length;
+      const inputField=document.getElementById('item-id').innerText=length+" "+'items found for category Entertainment';
+      
+      
+
 }
+//news end
+
+
+
+
+//spinner
 const spinner=document.getElementById('loader');
 const toggleLoader=isLoading=>{
       if(isLoading){
@@ -115,10 +142,11 @@ const newsLoaderDetails=async(news_id)=>{
 }
 
 const displayNewsDetails=news=>{
+  
   const modalTitle=document.getElementById('newsDetailModalLabel');
   const modalDetails=document.getElementById('news-details');
     news.forEach(element => {
-      console.log(element)
+      // console.log(element)
       modalTitle.innerText=element.title;
       modalDetails.innerHTML=`
       <p>${element.details}</p>
