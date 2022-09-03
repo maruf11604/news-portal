@@ -24,6 +24,8 @@ const displayCatagories=(catagories)=>{
 
 
 const loadNewsId= async(category_id)=>{
+  toggleLoader(true)
+
     const url=`https://openapi.programming-hero.com/api/news/category/${category_id}`;//cat-id
 
     const res =await fetch(url);
@@ -38,11 +40,11 @@ const DisplayId=(items)=>{
     itemContainer.innerHTML=''
 
     const noNews=document.getElementById('no-news');
-    if(items.length!==0){
-      noNews.classList.add('d-none')
+    if(items.length===0){
+      noNews.classList.remove('d-none')
     }
     else{
-      noNews.classList.remove('d-none')
+      noNews.classList.add('d-none')
     }
     items.forEach(item => {
         // console.log(item)
@@ -52,7 +54,7 @@ const DisplayId=(items)=>{
         <div class="card mb-3" >
                 <div class="row">
                   <div class="col-md-4 ">
-                    <img src="${item.image_url}" class="img-fluid rounded-start" alt="...">
+                    <img src="${item.image_url?item.image_url:'no data found'}" class="img-fluid rounded-start" alt="...">
                   </div>
                   <div class="col-md-8 ">
 
@@ -70,8 +72,8 @@ const DisplayId=(items)=>{
                         <img class="w-50 h-75 rounded-circle" src="${item.author.img}" alt="">
                       </div>
                       <div class="col-8">
-                        <div><p>${item.author.name}</p></div>
-                        <p>${item.author.published_date}</p>
+                        <div><p>${item.author.name ? item.author.name : 'no data'}</p></div>
+                        <p>${item.author.published_date ? item.author.published_date:'no data'}</p>
             
                       </div>
             
@@ -79,7 +81,7 @@ const DisplayId=(items)=>{
                     
                   </div>
                   <div class="col-6">
-                    <span class="m-5">${item.total_view}</span>
+                    <span class="m-5">${item.total_view ? item.total_view :'no data ' }</span>
                     <span class="m-5">${item.rating.number}</span>
                     <button onclick="newsLoaderDetails('${item._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >show details</button>
                   </div>
@@ -92,7 +94,17 @@ const DisplayId=(items)=>{
         itemContainer.appendChild(itemDiv);
         
     });
+    toggleLoader(false);
 
+}
+const spinner=document.getElementById('loader');
+const toggleLoader=isLoading=>{
+      if(isLoading){
+        spinner.classList.remove('d-none')
+      }
+      else{
+        spinner.classList.add('d-none')
+      }
 }
 
 const newsLoaderDetails=async(news_id)=>{
