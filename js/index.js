@@ -14,7 +14,7 @@ const displayCatagories=(catagories)=>{
         const UL=document.createElement('ul');
         UL.classList.add('col')
         UL.innerHTML=`
-        <li onclick="loadNewsId('${catagory.category_id}')" style="list-style-type:none" class="p-1 btn"><a>${catagory.category_name}</a></li>
+        <li onclick="loadNewsId('${catagory.category_id}')" style="list-style-type:none" class="p-0 btn"><a>${catagory.category_name}</a></li>
         `;
         catagoryContainer.appendChild(UL);
 
@@ -37,7 +37,7 @@ const DisplayId=(items)=>{
     const itemContainer=document.getElementById('catagories');
     itemContainer.innerHTML=''
     items.forEach(item => {
-        console.log(item)
+        // console.log(item)
         const itemDiv=document.createElement('div');
         itemDiv.classList.add('col');
         itemDiv.innerHTML=`
@@ -71,30 +71,42 @@ const DisplayId=(items)=>{
                     
                   </div>
                   <div class="col-6">
-                    <span>${item.total_view}</span>
-                    <span>
-                    
-                    </span>
-                    <button class="ms-2" >btn</button>
-                    
-                    
-                  </div>
-                            
-                        
-                    
-                    </div>
-                  
-                    
-                    
+                    <span class="m-5">${item.total_view}</span>
+                    <span class="m-5">${item.rating.number}</span>
+                    <button onclick="newsLoaderDetails('${item._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >show details</button>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
         
         `;
         itemContainer.appendChild(itemDiv);
         
     });
 
+}
+
+const newsLoaderDetails=async(news_id)=>{
+  const url=`https://openapi.programming-hero.com/api/news/${news_id}`;
+  const res=await fetch(url);
+  const data=await res.json();
+  displayNewsDetails(data.data);
+}
+
+const displayNewsDetails=news=>{
+  const modalTitle=document.getElementById('newsDetailModalLabel');
+  const modalDetails=document.getElementById('news-details');
+    news.forEach(element => {
+      console.log(element)
+      modalTitle.innerText=element.title;
+      modalDetails.innerHTML=`
+      <p>${element.details}</p>
+      <p>${element.author.name}</p>
+      <p>${element.author.published_date}</p>
+      
+      `
+    });
 }
 
 
