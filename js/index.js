@@ -1,9 +1,15 @@
 const catagoriesLoader= async()=>{
     const url=`https://openapi.programming-hero.com/api/news/categories`;
+    try {
+      const res= await fetch(url);
+      const data=await res.json();
+      displayCatagories(data.data.news_category);
+      
+    } catch (error) {
+      console.log(error);
+    }
 
-    const res= await fetch(url);
-    const data=await res.json();
-    displayCatagories(data.data.news_category);
+    
 }
 
 const displayCatagories=(catagories)=>{
@@ -25,24 +31,19 @@ const displayCatagories=(catagories)=>{
 
 const loadNewsId= async(category_id)=>{
   toggleLoader(true)
+  const url=`https://openapi.programming-hero.com/api/news/category/${category_id}`;//cat-id
 
-    const url=`https://openapi.programming-hero.com/api/news/category/${category_id}`;//cat-id
-
+  try {
     const res =await fetch(url);
     const data= await res.json();
-    DisplayId(data.data)//data.data
-
+    DisplayId(data.data);//data.data
     
+  } catch (error) {
+    console.log(error);
+  }
 
 }
-
-// const getLength=(items)=>{
-//   let length=items.length;
-//   let flength=length.toString()
-//   const inputField=document.getElementById('item-id');
-//   const inputString=inputField.value ;
-//   inputString.innerText=flength;
-// }
+//display items
 
 const DisplayId=(items)=>{
   
@@ -136,9 +137,15 @@ const toggleLoader=isLoading=>{
 
 const newsLoaderDetails=async(news_id)=>{
   const url=`https://openapi.programming-hero.com/api/news/${news_id}`;
-  const res=await fetch(url);
-  const data=await res.json();
-  displayNewsDetails(data.data);
+
+  try {
+    const res=await fetch(url);
+    const data=await res.json();
+    displayNewsDetails(data.data);
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
 
 const displayNewsDetails=news=>{
