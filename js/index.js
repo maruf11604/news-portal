@@ -36,6 +36,14 @@ const DisplayId=(items)=>{
     
     const itemContainer=document.getElementById('catagories');
     itemContainer.innerHTML=''
+
+    const noNews=document.getElementById('no-news');
+    if(items.length!==0){
+      noNews.classList.add('d-none')
+    }
+    else{
+      noNews.classList.remove('d-none')
+    }
     items.forEach(item => {
         // console.log(item)
         const itemDiv=document.createElement('div');
@@ -44,7 +52,7 @@ const DisplayId=(items)=>{
         <div class="card mb-3" >
                 <div class="row">
                   <div class="col-md-4 ">
-                    <img src="${item.thumbnail_url}" class="img-fluid rounded-start" alt="...">
+                    <img src="${item.image_url}" class="img-fluid rounded-start" alt="...">
                   </div>
                   <div class="col-md-8 ">
 
@@ -59,7 +67,7 @@ const DisplayId=(items)=>{
                     <div class="col-6">
                     <div class="row">
                       <div class="col-4 ">
-                        <img class="w-50 h-75 rounded-circle" src="${item.image_url}" alt="">
+                        <img class="w-50 h-75 rounded-circle" src="${item.author.img}" alt="">
                       </div>
                       <div class="col-8">
                         <div><p>${item.author.name}</p></div>
