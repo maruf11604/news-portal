@@ -38,6 +38,7 @@ const loadNewsId= async(category_id)=>{
     const data= await res.json();
     DisplayId(data.data);//data.data
     
+    
   } catch (error) {
     console.log(error);
   }
@@ -47,11 +48,10 @@ const loadNewsId= async(category_id)=>{
 
 const DisplayId=(items)=>{
   
-  
-  
-
-   
- 
+    items.sort(function(a,b){
+      return b.total_view -a.total_view;
+    })
+    // console.log(items)
     
     const itemContainer=document.getElementById('catagories');
     itemContainer.innerHTML=''
@@ -64,6 +64,7 @@ const DisplayId=(items)=>{
       noNews.classList.add('d-none')
     }
     items.forEach(item => {
+      
         // console.log(item)
         const itemDiv=document.createElement('div');
         itemDiv.classList.add('col');
