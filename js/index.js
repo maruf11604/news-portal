@@ -28,8 +28,10 @@ const displayCatagories=(catagories)=>{
 
 }
 
+//all catagories load
 
 const loadNewsId= async(category_id)=>{
+  //loader start
   toggleLoader(true)
   const url=`https://openapi.programming-hero.com/api/news/category/${category_id}`;//cat-id
 
@@ -44,6 +46,8 @@ const loadNewsId= async(category_id)=>{
   }
 
 }
+
+
 //display items
 
 const DisplayId=(items)=>{
@@ -113,14 +117,14 @@ const DisplayId=(items)=>{
         
     });
     toggleLoader(false);
-
+  //news end
       let length=items.length;
       const inputField=document.getElementById('item-id').innerText=length+" "+'items found for category Entertainment';
       
       
 
 }
-//news end
+
 
 
 
@@ -136,6 +140,7 @@ const toggleLoader=isLoading=>{
       }
 }
 
+//load news for modal 
 const newsLoaderDetails=async(news_id)=>{
   const url=`https://openapi.programming-hero.com/api/news/${news_id}`;
 
@@ -166,5 +171,5 @@ const displayNewsDetails=news=>{
 }
 
 
-
+//load all
 catagoriesLoader()
